@@ -1,0 +1,15 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="leafGrad" x1="0" y1="32" x2="64" y2="32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d2f6e5"/>
+      <stop offset="1" stop-color="#3cb371"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="32" cy="40" rx="18" ry="10" fill="url(#leafGrad)" />
+  <path d="M32 60C32 30 10 32 10 32C18 10 32 12 32 12C32 12 46 10 54 32C54 32 32 30 32 60Z"
+    fill="url(#leafGrad)" stroke="#247a49" stroke-width="2.2" />
+  <path d="M32 60V12" stroke="#247a49" stroke-width="2" stroke-linecap="round"/>
+  <path d="M32 32C30 27 24 20 17 16" stroke="#3cb371" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M32 32C34 27 40 20 47 16" stroke="#3cb371" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

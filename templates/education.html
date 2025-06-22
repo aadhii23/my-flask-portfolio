@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+.edu-section {
+    max-width: 800px;
+    margin: 60px auto 0 auto;
+    background: linear-gradient(120deg, #fff 70%, #d2f6e5 100%);
+    border-radius: 24px;
+    box-shadow: 0 4px 32px #b7f5c75c;
+    padding: 50px 28px 38px 28px;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    animation: fadeIn 1.2s;
+}
+.edu-title {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: var(--main-green);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.2em;
+    text-shadow: 0 3px 10px #d2f6e5cc;
+    text-align: center;
+    animation: slideInUp 1.1s;
+}
+.divider {
+    width: 60px; height: 4px;
+    background: linear-gradient(90deg, #34b278 50%, #d2f6e5 100%);
+    margin: 22px auto 30px auto;
+    border-radius: 2px;
+    animation: fadeIn 1.9s;
+}
+.education-timeline {
+    position: relative;
+    margin: 40px auto 0 auto;
+    max-width: 600px;
+    padding-left: 18px;
+}
+.timeline-line {
+    position: absolute;
+    top: 0; left: 30px; width: 4px; height: 100%;
+    background: linear-gradient(180deg, #7be0ad 20%, #3cb371 100%);
+    border-radius: 3px;
+    z-index: 0;
+    opacity: 0.25;
+}
+.edu-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 52px;
+    position: relative;
+    z-index: 1;
+    animation: floatCard 5s ease-in-out infinite alternate;
+}
+@keyframes floatCard { 0%{transform:translateY(0);} 100%{transform:translateY(-8px);} }
+.edu-badge {
+    width: 62px; height: 62px;
+    background: linear-gradient(135deg, #d2f6e5 65%, #7be0ad 100%);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2em; color: var(--main-green);
+    font-weight: 700;
+    box-shadow: 0 3px 15px #7be0ad50;
+    border: 3.5px solid #fff;
+    margin-right: 17px;
+    flex-shrink: 0;
+}
+.edu-content {
+    background: linear-gradient(90deg, #fff 80%, #d2f6e5 100%);
+    border-radius: 13px;
+    padding: 18px 20px 13px 20px;
+    box-shadow: 0 2px 14px #b7f5c75c;
+    min-width: 210px;
+    transition: box-shadow 0.22s;
+    animation: fadeIn 1.7s;
+}
+.edu-content:hover {
+    box-shadow: 0 8px 26px #b7f5c79c;
+}
+.edu-degree {
+    font-size: 1.17em;
+    font-weight: 700;
+    color: var(--main-green);
+    margin: 0 0 7px 0;
+}
+.edu-school {
+    font-size: 1.08em;
+    font-weight: 600;
+    color: #247a49;
+    display: block;
+    margin-bottom: 6px;
+}
+.edu-year {
+    background: var(--main-green);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.97em;
+    border-radius: 8px;
+    padding: 3px 14px;
+    margin-right: 10px;
+    display: inline-block;
+}
+.edu-highlight {
+    background: #d2f6e5;
+    color: #247a49;
+    font-weight: 700;
+    border-radius: 7px;
+    padding: 2px 9px;
+    margin-left: 8px;
+    font-size: 0.93em;
+}
+@media (max-width: 700px) {
+    .edu-section { padding: 24px 2vw 10px 2vw;}
+    .education-timeline { padding-left: 0;}
+    .edu-item { flex-direction: column; align-items: flex-start; }
+    .edu-badge { margin-bottom: 8px; }
+    .edu-content { width: 98%; }
+    .timeline-line { left: 22px;}
+}
+.bg-ornaments {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+}
+.bg-ornaments img, .bg-ornaments svg {
+    position: absolute; opacity: 0.21;
+    filter: blur(0.5px);
+}
+.bg-ornaments .mandala { top: -50px; left: -38px; width: 90px;}
+.bg-ornaments .herb { top: 48%; right: -38px; width: 70px;}
+.bg-ornaments .lotus { bottom: -30px; right: 12%; width: 55px;}
+.bg-ornaments .ellipse1 {
+    top: 70%; left: 89%; width: 50px; opacity: 0.15;
+    filter: blur(2.5px);
+}
+.bg-ornaments .ellipse2 {
+    bottom: 10%; left: 4%; width: 70px; opacity: 0.10;
+    filter: blur(2.5px);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="edu-section">
+    <div class="bg-ornaments">
+        <img src="{{ url_for('static', filename='mandala.svg') }}" class="mandala" alt="Mandala">
+        <img src="{{ url_for('static', filename='herb.svg') }}" class="herb" alt="Herb">
+        <img src="{{ url_for('static', filename='lotus.svg') }}" class="lotus" alt="Lotus">
+        <svg class="ellipse1" width="50" height="50"><ellipse cx="25" cy="25" rx="25" ry="25" fill="#7be0ad"></ellipse></svg>
+        <svg class="ellipse2" width="70" height="70"><ellipse cx="35" cy="35" rx="35" ry="35" fill="#d2f6e5"></ellipse></svg>
+    </div>
+    <h2 class="edu-title">🎓 Education Journey</h2>
+    <div class="divider"></div>
+    <div class="education-timeline">
+        <div class="timeline-line"></div>
+
+        <div class="edu-item">
+            <div class="edu-badge">🏫</div>
+            <div class="edu-content">
+                <div class="edu-year">2010 – 2020</div>
+                <span class="edu-school">Royal International Public School, Mylanahalli</span>
+                <div class="edu-degree">Grades 1 to 10 (CBSE)</div>
+                <div>
+                  Passed CBSE Board with <span class="edu-highlight">92%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="edu-item">
+            <div class="edu-badge">🏫</div>
+            <div class="edu-content">
+                <div class="edu-year">2021 – 2023</div>
+                <span class="edu-school">Narayana e-Techno School, Vidhyaranyapura</span>
+                <div class="edu-degree">Grades 11 &amp; 12 (CBSE)</div>
+                <div>
+                  Passed CBSE Board with <span class="edu-highlight">86%</span>
+                </div>
+                <div>
+                  Cleared <b>NEET-UG</b> with <span class="edu-highlight">400+ marks</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="edu-item">
+            <div class="edu-badge">🌱</div>
+            <div class="edu-content">
+                <div class="edu-year">2023 – Present</div>
+                <span class="edu-school">Adichunchanagiri Ayurvedic Medical College, Nelamangala</span>
+                <div class="edu-degree">BAMS (Bachelor of Ayurvedic Medicine &amp; Surgery)</div>
+                <div>
+                  Currently pursuing Ayurveda with passion &amp; dedication.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

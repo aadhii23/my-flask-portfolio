@@ -1,0 +1,335 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Quicksand:wght@700;500&family=Raleway:wght@900&family=Nunito:wght@800&display=swap');
+body {
+    background: linear-gradient(135deg, #baffd9 0%, #fffbe6 50%, #dcefff 100%);
+    min-height: 100vh;
+    margin: 0;
+    background-image: 
+        linear-gradient(135deg, #baffd9cc 0%, #fffbe6cc 50%, #dcefffcc 100%),
+        url("{{ url_for('static', filename='image.png') }}");
+    background-repeat: no-repeat, no-repeat;
+    background-position: center center, center center;
+    background-size: cover, cover;
+    background-blend-mode: lighten, normal;
+    transition: background 1.2s cubic-bezier(.7,.2,.2,1);
+}
+.bg-shapes {
+    position: absolute;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0.36;
+    animation: float 12s infinite ease-in-out;
+    box-shadow: 0 0 60px 25px #d2f6e5aa;
+    transition: box-shadow .7s;
+}
+.circle-green   { background: linear-gradient(135deg, #0ff59d 60%, #d2f6e5 100%);}
+.circle-white   { background: linear-gradient(135deg, #fff 70%, #d2f6e5 100%);}
+.circle-outline { border: 3px solid #7be0ad; background: transparent;}
+@keyframes float {
+    0% { transform: translateY(0);}
+    50% { transform: translateY(-45px);}
+    100% { transform: translateY(0);}
+}
+.ayurveda-icon {
+    position: absolute;
+    width: 54px; height: 54px;
+    animation: rotate 16s infinite linear;
+    opacity: 0.98;
+    filter: drop-shadow(0 3px 16px #b7f5c76c);
+    transition: filter .3s;
+    mix-blend-mode: lighten;
+}
+.ayurveda-icon.lotus   { top:12%; left:10%;}
+.ayurveda-icon.leaf    { top:58%; right:8%;}
+.ayurveda-icon.herb    { top:38%; left:22%;}
+.ayurveda-icon.mandala { bottom:6%; right:18%;}
+.ayurveda-icon.extra1 { top:32%; left:71%; width: 64px; opacity:0.82; animation-duration:23s;}
+.ayurveda-icon.extra2 { top:5%; right:19%; width: 44px; opacity:0.78; animation-duration:18s;}
+.ayurveda-icon.extra3 { bottom:19%; left:18%; width: 38px; opacity:0.74; animation-duration:13s;}
+.ayurveda-icon.extra4 { bottom:5%; right:42%; width: 55px; opacity:0.60; animation-duration:21s;}
+@keyframes rotate { 0% { transform: rotate(0);} 100% { transform: rotate(360deg);} }
+
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes slideInLeft { to { transform: translateX(0); } }
+@keyframes slideInRight { to { transform: translateX(0); } }
+@keyframes slideInUp { to { transform: translateY(0); } }
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0);}
+    40% { transform: translateY(-16px);}
+    60% { transform: translateY(-8px);}
+}
+.fade-in,.slide-in-left,.slide-in-right,.slide-in-up { opacity: 1 !important; transform: none !important; }
+
+/* --- GLOW BORDER FOR IMAGE --- */
+.big-face-glow-container {
+    display: inline-block;
+    border-radius: 50%;
+    padding: 0.6em;
+    background: none;
+    position: relative;
+    z-index: 2;
+    /* Center the pseudo-element correctly */
+}
+.big-face-glow-container::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: auto;
+    border-radius: 50%;
+    z-index: 2;
+    pointer-events: none;
+    /* NEON borders using two colored gradients and clever masking */
+    background:
+      conic-gradient(
+        #baffd9 0deg 100deg,
+        #dcefff 120deg 240deg,
+        #baffd9 260deg 360deg
+      );
+    -webkit-mask:
+      radial-gradient(circle, transparent 64%, black 66%);
+    mask:
+      radial-gradient(circle, transparent 64%, black 66%);
+    /* Only the edge will show! */
+    filter: blur(3px) brightness(2) saturate(1.5);
+    animation: neonSpin 3s linear infinite;
+    opacity: 1;
+}
+@keyframes neonSpin {
+    to { transform: rotate(360deg); }
+}
+.big-face {
+    width: 100%;
+    max-width: 440px;
+    min-width: 180px;
+    height: auto;
+    border-radius: 50%;
+    position: relative;
+    z-index: 3;
+    background: transparent;
+    border: 8px solid #7be0ad44;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: none;
+    transition: box-shadow 0.26s, transform 0.26s;
+}
+.big-face-glow-container:hover::before {
+    filter: blur(8px) brightness(2.5) saturate(2.5);
+}
+
+.big-face-glow-container:hover .big-face {
+    box-shadow: 0 0 32px 0 #baffd9cc, 0 2px 24px #dcefff77;
+}
+
+.name-container {
+    display: inline-block;
+    background: linear-gradient(110deg, #fff 80%, #baffd9 100%);
+    border-radius: 36px 36px 36px 0;
+    box-shadow: 0 4px 40px #0ff59d23, 0 1.5px 8px #d2f6e5;
+    padding: 34px 62px 28px 50px;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 99;
+    border: 3px solid #7be0ad44;
+    transition: box-shadow 0.23s, transform 0.23s;
+    animation: pulseGlow 2.1s infinite alternate;
+}
+@keyframes pulseGlow {
+    0% { box-shadow: 0 4px 40px #0ff59d23, 0 1.5px 8px #d2f6e5; }
+    100% { box-shadow: 0 18px 66px 0 #3cb37177, 0 2.5px 12px #d2f6e5; transform: scale(1.018);}
+}
+.name-container:hover {
+    box-shadow: 0 18px 66px #3cb37144, 0 5px 20px #d2f6e5;
+    transform: scale(1.04) rotate(-1.3deg);
+}
+.name {
+    font-size: 4.2em;
+    color: #1dd07a;
+    font-family: 'Montserrat', 'Raleway', sans-serif;
+    letter-spacing: 0.09em;
+    font-weight: 900;
+    text-shadow:
+        0 2px 24px #b7f5c7cc,
+        0 1px 0 #fff,
+        2px 1px 0 #c0e6d6,
+        1px 3px 8px #3cb37166;
+    margin: 0;
+    position: relative;
+    z-index: 100;
+    background: none;
+    line-height: 1.07;
+    text-transform: uppercase;
+    border-bottom: 2.5px solid #22a36c33;
+    padding-bottom: 10px;
+    background-clip: text;
+    -webkit-background-clip: text;
+    transition: color .3s, text-shadow .3s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.name::after {
+    content: '✨';
+    margin-left: 18px;
+    font-size: 0.7em;
+    color: #fbc531;
+    vertical-align: middle;
+    filter: drop-shadow(0 1px 3px #fff7);
+    animation: sparkle 2.5s infinite alternate;
+}
+@keyframes sparkle {
+    0% { opacity: 0.75; transform: scale(1) rotate(-8deg);}
+    100% { opacity: 1; transform: scale(1.23) rotate(6deg);}
+}
+.divider {
+    width: 70px;
+    height: 5px;
+    background: linear-gradient(90deg, #34b278 50%, #d2f6e5 100%);
+    margin: 26px 0;
+    border-radius: 2px;
+    box-shadow: 0 0 14px #0ff59d77;
+}
+.intro {
+    font-size: 1.35em;
+    color: #187e56;
+    margin-top: 24px;
+    font-family: 'Nunito', 'Quicksand', sans-serif;
+    letter-spacing: 0.05em;
+    font-weight: 800;
+    text-shadow: 0 2px 12px #b7f5c744, 1px 1px 2px #0ff59d11;
+}
+.intro span {
+    color: #11c77e;
+    font-family: 'Quicksand', 'Raleway', sans-serif;
+    font-weight: 900;
+    text-shadow: 0 1px 6px #baffd999;
+}
+
+/* --- DYNAMIC BUTTON --- */
+.cta-btn {
+    display: inline-block;
+    padding: 15px 32px;
+    background: linear-gradient(90deg, #22e484 70%, #3cb371 100%);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    margin-top: 34px;
+    font-size: 1.15em;
+    letter-spacing: 0.13em;
+    font-family: 'Quicksand', 'Montserrat', sans-serif;
+    border: none;
+    outline: none;
+    box-shadow: 0 3px 22px #0ff59d44, 0 0 0 0 #34b278;
+    position: relative;
+    transition: 
+      background 0.3s, 
+      transform 0.18s, 
+      box-shadow .3s,
+      letter-spacing .25s;
+    overflow: hidden;
+}
+.cta-btn::after {
+    content: '';
+    position: absolute;
+    left: -30%;
+    top: 0;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.55) 60%, transparent 100%);
+    transform: skewX(-26deg);
+    transition: left 0.3s;
+    pointer-events: none;
+}
+.cta-btn:hover {
+    background: linear-gradient(90deg, #1ad078 70%, #0ff59d 100%);
+    transform: scale(1.09) translateY(-3px) rotate(-1.5deg);
+    letter-spacing: 0.18em;
+    box-shadow: 0 8px 38px #0ff59d77, 0 2px 6px #d2f6e577, 0 0 20px #1ad07877;
+}
+.cta-btn:hover::after {
+    left: 110%;
+    transition: left 0.6s cubic-bezier(.45,1.7,.65,1);
+}
+
+.face-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: none;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 5vw;
+    position: relative;
+    z-index: 3;
+}
+.left, .right {
+    flex: 1;
+    padding: 34px;
+}
+.left { max-width: 600px; }
+.right { display: flex; justify-content: center; align-items: center; }
+@media (max-width: 900px) {
+    .container { flex-direction: column; align-items: center; padding: 15px 0; }
+    .left, .right { width: 100%; text-align: center; padding: 14px; }
+    .big-face { max-width: 80vw; }
+    .name-container { padding: 16px 8vw; }
+    .divider { margin: 22px auto; }
+}
+@media (max-width: 480px) {
+    .name { font-size: 2.3em; }
+    .intro { font-size: 1em; }
+    .cta-btn { padding: 10px 18px; font-size: 1em; }
+    .name-container { padding: 12px 5vw; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bg-shapes">
+    {% for s in shapes %}
+        <div class="shape {{ s.class }}"{% if s.style %} style="{{ s.style }}"{% endif %}></div>
+    {% endfor %}
+    {% for icon in ayurveda_icons %}
+        <img src="{{ icon.src }}" class="ayurveda-icon {{ icon.class }}" alt="{{ icon.alt }}">
+    {% endfor %}
+    <img src="{{ url_for('static', filename='mandala.svg') }}" style="position:absolute;top:19%;left:48%;width:41px;opacity:0.48;animation:spin 15s linear infinite;">
+    <img src="{{ url_for('static', filename='herb.svg') }}" style="position:absolute;bottom:8%;right:34%;width:44px;opacity:0.40;animation:spinrev 18s linear infinite;">
+    <img src="{{ url_for('static', filename='lotus.svg') }}" style="position:absolute;top:80%;left:75%;width:44px;opacity:0.40;animation:spin 22s linear infinite;">
+    <img src="{{ url_for('static', filename='leaf.svg') }}" style="position:absolute;top:44%;left:87%;width:40px;opacity:0.44;animation:spinrev 17s linear infinite;">
+    <style>
+        @keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+        @keyframes spinrev {0%{transform:rotate(360deg);}100%{transform:rotate(0deg);}}
+    </style>
+</div>
+<main class="container">
+    <section class="left fade-in slide-in-left">
+        <div class="name-container">
+            <h1 class="name">{{ name }}</h1>
+        </div>
+        <div class="divider"></div>
+        <p class="intro">
+            Welcome to my world of Ayurveda and holistic wellness.<br>
+            <span>Explore ancient wisdom, natural healing, and vibrant living.</span>
+        </p>
+        <a class="cta-btn bounce" href="{{ url_for('about') }}">Discover More</a>
+    </section>
+    <section class="right face-bg slide-in-right">
+        <span class="big-face-glow-container">
+            <img src="{{ face_image }}" class="big-face" alt="{{ name }}">
+        </span>
+    </section>
+</main>
+{% endblock %}

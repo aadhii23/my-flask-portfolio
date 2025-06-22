@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-title fade-in">
+    <h2 class="main-title">📬 Contact Me</h2>
+    <div class="divider"></div>
+    <p style="color: #20774b;max-width:420px;margin:0 auto 18px auto;">
+        Have a question, collaboration, or just want to say hello?<br>Send me a message!
+    </p>
+</div>
+<div class="contact-form-container fade-in">
+    <form class="contact-form glassy-form" method="POST" action="{{ url_for('contact') }}">
+        <div class="input-group">
+            <input type="text" name="name" id="contact-name" required>
+            <label for="contact-name">Your Name</label>
+        </div>
+        <div class="input-group">
+            <input type="email" name="email" id="contact-email" required>
+            <label for="contact-email">Your Email</label>
+        </div>
+        <div class="input-group">
+            <textarea name="message" id="contact-message" rows="5" required></textarea>
+            <label for="contact-message">Your Message</label>
+        </div>
+        <button class="cta-btn bounce" type="submit">Send Message</button>
+    </form>
+</div>
+{% endblock %}
+{% block styles %}
+<style>
+.section-title { text-align: center; margin-top: 40px;}
+.main-title { font-size: 2.2em; color: var(--main-green); font-weight: bold; letter-spacing: 0.02em; text-shadow: 0 2px 6px #d2f6e5cc;}
+.contact-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+.glassy-form {
+    background: rgba(255,255,255,0.82);
+    border-radius: 22px;
+    box-shadow: 0 2px 18px #b7f5c77c;
+    padding: 40px 34px 28px 34px;
+    min-width: 320px;
+    max-width: 440px;
+    margin: 0 auto;
+    backdrop-filter: blur(4px);
+    animation: floatCard 5s ease-in-out infinite alternate;
+}
+.input-group {
+    position: relative;
+    margin-bottom: 28px;
+}
+.input-group input, .input-group textarea {
+    width: 100%;
+    padding: 16px 12px 10px 12px;
+    font-size: 1.07em;
+    border: none;
+    border-bottom: 2.5px solid #7be0ad;
+    background: transparent;
+    color: var(--dark-green);
+    outline: none;
+    border-radius: 6px 6px 0 0;
+    transition: border-color 0.22s;
+    resize: vertical;
+}
+.input-group input:focus, .input-group textarea:focus {
+    border-bottom: 2.5px solid #247a49;
+    background: #d2f6e519;
+}
+.input-group label {
+    position: absolute;
+    left: 12px;
+    top: 16px;
+    color: #247a49cc;
+    pointer-events: none;
+    font-size: 1em;
+    transition: 0.17s;
+    background: transparent;
+}
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group textarea:focus + label,
+.input-group textarea:not(:placeholder-shown) + label {
+    top: -11px;
+    left: 2px;
+    color: var(--main-green);
+    font-size: 0.93em;
+    background: #fff;
+    padding: 0 5px;
+}
+.cta-btn {
+    width: 100%;
+    margin-top: 18px;
+    font-size: 1.1em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+@media (max-width: 480px) {
+    .glassy-form { padding: 24px 8px 18px 8px; min-width: 98vw; }
+}
+</style>
+{% endblock %}

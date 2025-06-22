@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+.aesthetic-container {
+    max-width: 1100px;
+    margin: 64px auto 0 auto;
+    padding: 42px 32px 52px 32px;
+    background: linear-gradient(135deg, #f6fff8 60%, #e5fbe8 100%);
+    border-radius: 38px;
+    box-shadow: 0 8px 60px #b7f5c75c, 0 1.5px 17px #7be0ad33;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    animation: fadeIn 1.2s;
+}
+.bg-ornaments {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+}
+.bg-ornaments img, .bg-ornaments svg {
+    position: absolute;
+    opacity: 0.19;
+    filter: blur(0.5px);
+}
+.bg-ornaments .mandala { top: -60px; left: -40px; width: 140px;}
+.bg-ornaments .herb { top: 30%; right: -38px; width: 94px;}
+.bg-ornaments .lotus { bottom: -30px; left: 10%; width: 84px;}
+.bg-ornaments .leaf { top: 28px; right: 11%; width: 80px;}
+.bg-ornaments .ellipse1 {
+    top: 75%; left: 81%; width: 110px; opacity: 0.14;
+    filter: blur(2.5px);
+}
+.bg-ornaments .ellipse2 {
+    bottom: 7%; left: 4%; width: 120px; opacity: 0.13;
+    filter: blur(2.5px);
+}
+.about-title {
+    font-size: 2.8em;
+    font-weight: bold;
+    color: var(--main-green);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.2em;
+    text-shadow: 0 3px 18px #d2f6e5cc;
+    text-align: center;
+    font-family: 'Montserrat', serif;
+    animation: slideInUp 1.1s;
+}
+.divider {
+    width: 70px;
+    height: 5px;
+    background: linear-gradient(90deg, #34b278 60%, #d2f6e5 100%);
+    margin: 22px auto 36px auto;
+    border-radius: 3px;
+    animation: fadeIn 1.9s;
+}
+/* Flex image gallery replacing profile */
+.flex-gallery-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 38px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 32px auto;
+    max-width: 900px;
+    animation: fadeIn 1.3s;
+}
+.flex-gallery-img {
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 7px solid #d2f6e5;
+    background: #fff;
+    box-shadow: 0 8px 32px #b7f5c77c, 0 2px 10px #7be0ad22;
+    opacity: 0.93;
+    transition:
+      transform 0.38s cubic-bezier(.88,-0.07,.17,1.01),
+      box-shadow 0.33s cubic-bezier(.88,-0.07,.17,1.01),
+      border-color 0.27s cubic-bezier(.88,-0.07,.17,1.01),
+      opacity 0.6s cubic-bezier(.88,-0.07,.17,1.01);
+    cursor: pointer;
+    will-change: transform, box-shadow, opacity;
+    animation: popIn 1.2s cubic-bezier(.22,1.08,.45,.99) both;
+    position: relative;
+    z-index: 1;
+}
+.flex-gallery-img:hover, .flex-gallery-img:focus {
+    opacity: 1;
+    border-color: #32c38c;
+    z-index: 2;
+    /* Dynamic motion: jump, rotate, scale, shadow */
+    transform: scale(1.13) rotate(
+        calc(-10deg + 20deg * var(--rand, 0.5))
+    ) translateY(-18px) perspective(500px) rotateY(
+        calc(-10deg + 20deg * var(--rand, 0.5))
+    );
+    box-shadow: 0 32px 100px #7be0addb, 0 12px 25px #34b27833, 0 0 0 7px #d2f6e533;
+}
+.flex-gallery-img:active {
+    transform: scale(0.98) rotate(0deg) translateY(6px);
+    transition: transform 0.12s;
+}
+.flex-gallery-img:not(:hover) {
+    animation: floatY 2.7s ease-in-out infinite alternate;
+}
+@keyframes floatY {
+    0% { transform: scale(1) translateY(0) rotate(0deg);}
+    100% { transform: scale(1.04) translateY(-12px) rotate(2.5deg);}
+}
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.77) translateY(60px) rotate(-10deg);}
+    65% { opacity: 1; transform: scale(1.10) translateY(-9px) rotate(2deg);}
+    100% { opacity: 0.93; transform: scale(1) translateY(0) rotate(0);}
+}
+@media (max-width: 1200px) {
+    .flex-gallery-img { width: 140px; height: 140px; border-radius: 11px;}
+    .flex-gallery-top { gap: 19px; }
+}
+@media (max-width: 700px) {
+    .flex-gallery-img { width: 90px; height: 90px; border-radius: 6px;}
+    .flex-gallery-top { gap: 8px; }
+    .aesthetic-container { padding: 5vw 1vw 7vw 1vw;}
+}
+.about-bio {
+    font-size: 1.22em;
+    color: #226f45;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    line-height: 1.7;
+    max-width: 670px;
+    font-family: 'Quicksand', 'Montserrat', Arial, sans-serif;
+    animation: fadeIn 1.8s;
+    background: linear-gradient(90deg, #fff8, #e5fbe866 100%);
+    border-radius: 16px;
+    padding: 23px 10px 18px 10px;
+    box-shadow: 0 1.5px 12px #b7f5c726;
+}
+.traits-list {
+    margin: 38px auto 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    z-index: 2;
+}
+.trait-card {
+    background: linear-gradient(120deg, #fff 85%, #d2f6e5 100%);
+    border-radius: 16px;
+    box-shadow: 0 2px 16px #b7f5c76c;
+    padding: 21px 22px;
+    min-width: 190px;
+    max-width: 250px;
+    text-align: center;
+    font-size: 1.08em;
+    color: #247a49;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    animation: floatCard 4s ease-in-out infinite alternate;
+    transition: transform 0.18s, box-shadow 0.19s;
+    position: relative;
+    z-index: 1;
+}
+.trait-card:hover {
+    transform: scale(1.04) translateY(-7px);
+    box-shadow: 0 8px 32px #b7f5c79c;
+    background: linear-gradient(100deg, #d2f6e5 65%, #fff 100%);
+}
+@keyframes floatCard {
+    0% { transform: translateY(0);}
+    100% { transform: translateY(-8px);}
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Assign a unique --rand value to each image for hover/animation diversity
+    document.querySelectorAll('.flex-gallery-img').forEach(function(img, idx) {
+        img.style.setProperty('--rand', Math.random().toFixed(2));
+        // Robust: Remove any previous animation when hovered to prevent stacking glitches
+        img.addEventListener('mouseenter', function() {
+            img.style.animation = 'none';
+            // Force reflow to reset animation cleanly for next time
+            void img.offsetWidth;
+        });
+        img.addEventListener('mouseleave', function() {
+            img.style.animation = '';
+        });
+        // Fallback for image loading errors
+        img.addEventListener('error', function() {
+            img.style.opacity = '0.3';
+            img.style.border = '2px dashed #ee5252';
+            img.title = 'Image failed to load';
+        });
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="aesthetic-container">
+    <div class="bg-ornaments">
+        {% for icon in ayurveda_icons %}
+            <img src="{{ icon.src }}" class="{{ icon.class }}" alt="{{ icon.alt }}">
+        {% endfor %}
+        <svg class="ellipse1" width="110" height="110"><ellipse cx="55" cy="55" rx="55" ry="55" fill="#7be0ad"></ellipse></svg>
+        <svg class="ellipse2" width="120" height="120"><ellipse cx="60" cy="60" rx="60" ry="60" fill="#d2f6e5"></ellipse></svg>
+    </div>
+    <h2 class="about-title">About Shivani Shree G</h2>
+    <div class="divider"></div>
+
+    <!-- Flex Gallery for all images except image.png -->
+    <div class="flex-gallery-top">
+        {% for img_url in carousel_images %}
+            <img src="{{ img_url }}" class="flex-gallery-img" alt="Gallery image {{ loop.index }}">
+        {% endfor %}
+    </div>
+
+    <div class="about-bio">
+        Hello! I’m <b>Shivani Shree G</b>, currently a passionate BAMS (Bachelor of Ayurvedic Medicine & Surgery) student at <b>Adichunchanagiri Ayurvedic Medical College, Nelamangala</b>.
+        <br><br>
+        With a deep-rooted curiosity for holistic health, I constantly strive to blend ancient wisdom with modern science, nurturing both my academic and personal growth. My journey in Ayurveda has been fueled by an unwavering enthusiasm, a strong sense of empathy, and the drive to make a difference in people’s lives.<br><br>
+        I believe in the healing power of nature and am dedicated to exploring the vast world of herbal medicine, preventive care, and wellness. Whether it’s through research, organizing health camps, or simply supporting my peers, I approach each day with optimism, diligence, and a commitment to excellence.
+        <br><br>
+        <span style="color: #3cb371; font-weight:600;">Let’s celebrate the art of living well, naturally!</span>
+    </div>
+    <div class="traits-list">
+        <div class="trait-card">Hardworking &amp; Determined</div>
+        <div class="trait-card">Enthusiastic Learner</div>
+        <div class="trait-card">Compassionate &amp; Empathetic</div>
+        <div class="trait-card">Organized &amp; Proactive</div>
+        <div class="trait-card">Loves Ayurveda &amp; Nature</div>
+    </div>
+</div>
+{% endblock %}

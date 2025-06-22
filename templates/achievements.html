@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+.section-title {
+    text-align: center;
+    margin-top: 35px;
+}
+.main-title {
+    font-size: 2.3em;
+    color: var(--main-green);
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.2em;
+    text-shadow: 0 2px 6px #d2f6e5cc;
+}
+.achievements-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 36px;
+    justify-content: center;
+    margin: 40px auto 0 auto;
+    max-width: 1000px;
+    position: relative;
+    z-index: 2;
+}
+.achievement-card {
+    background: linear-gradient(135deg, #fff 78%, #d2f6e5 100%);
+    border-radius: 22px;
+    box-shadow: 0 2px 16px #b7f5c75c;
+    padding: 34px 30px 26px 30px;
+    min-width: 260px;
+    max-width: 350px;
+    transition: transform 0.18s, box-shadow 0.18s;
+    position: relative;
+    animation: floatCard 5s ease-in-out infinite alternate;
+    overflow: hidden;
+}
+@keyframes floatCard {
+    0% { transform: translateY(0);}
+    100% { transform: translateY(-10px);}
+}
+.achievement-card:hover {
+    transform: translateY(-7px) scale(1.035) rotate(-2deg);
+    box-shadow: 0 12px 38px #b7f5c79c;
+    background: linear-gradient(135deg, #d2f6e5 70%, #fff 100%);
+}
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+.card-header .icon {
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 2px 8px #d2f6e5cc);
+    animation: spinIcon 8s linear infinite;
+}
+@keyframes spinIcon {
+    0% { transform: rotate(-5deg);}
+    20% { transform: rotate(6deg);}
+    45% { transform: rotate(-8deg);}
+    80% { transform: rotate(10deg);}
+    100% { transform: rotate(-5deg);}
+}
+.card-header .emoji-badge {
+    font-size: 2.1em;
+    margin-right: 10px;
+    filter: drop-shadow(0 0 6px #7be0ad88);
+    animation: bounceBadge 3s infinite;
+}
+@keyframes bounceBadge {
+    0%,100%{transform:translateY(0);}
+    30%{transform:translateY(-9px);}
+    50%{transform:translateY(3px);}
+    70%{transform:translateY(-5px);}
+}
+.ach-title {
+    font-size: 1.19em;
+    font-weight: 700;
+    color: var(--dark-green);
+    flex: 1;
+}
+.ach-year {
+    background: var(--main-green);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+    border-radius: 12px;
+    padding: 3px 12px;
+    margin-left: 8px;
+    box-shadow: 0 2px 12px #7be0ad33;
+}
+.card-body {
+    color: #206b3c;
+    font-size: 1.11em;
+    letter-spacing: 0.01em;
+    line-height: 1.6;
+}
+.celebrate {
+    font-size: 1.4em;
+    display: inline-block;
+    margin-left: 4px;
+    animation: confetti 3s infinite;
+}
+@keyframes confetti {
+    0% { filter: hue-rotate(0deg);}
+    100% { filter: hue-rotate(360deg);}
+}
+.confetti-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+.confetti-piece {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: confettiFall 8s linear infinite;
+}
+@keyframes confettiFall {
+    0% { transform: translateY(-50px) rotate(0deg);}
+    100% { transform: translateY(110vh) rotate(460deg);}
+}
+.confetti1 { background: #3cb371; width: 18px; height: 18px; left: 3%; animation-delay: 0s;}
+.confetti2 { background: #7be0ad; width: 13px; height: 13px; left: 30%; animation-delay: 2s;}
+.confetti3 { background: #d2f6e5; width: 16px; height: 16px; left: 48%; animation-delay: 1s;}
+.confetti4 { background: #fff; width: 10px; height: 10px; left: 60%; animation-delay: 4s;}
+.confetti5 { background: #20774b; width: 20px; height: 20px; left: 80%; animation-delay: 2.5s;}
+.confetti6 { background: #a0eec0; width: 14px; height: 14px; left: 88%; animation-delay: 3.4s;}
+.confetti7 { background: #b7f5c7; width: 12px; height: 12px; left: 15%; animation-delay: 2.2s;}
+.confetti8 { background: #66d7a9; width: 17px; height: 17px; left: 72%; animation-delay: 1.8s;}
+.bg-ornaments {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1; pointer-events: none;
+}
+.bg-ornaments img, .bg-ornaments svg {
+    position: absolute; opacity: 0.13;
+    filter: blur(0.5px);
+}
+.bg-ornaments .mandala { top: -40px; left: -38px; width: 120px;}
+.bg-ornaments .herb { top: 48%; right: -28px; width: 60px;}
+.bg-ornaments .lotus { bottom: -28px; left: 12%; width: 55px;}
+.bg-ornaments .ellipse1 {
+    top: 72%; left: 80%; width: 70px; opacity: 0.09;
+    filter: blur(2.5px);
+}
+@media (max-width: 800px) {
+    .achievements-list { flex-direction: column; align-items: center; }
+    .achievement-card { width: 92%; max-width: 440px; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="confetti-bg">
+    <div class="confetti-piece confetti1"></div>
+    <div class="confetti-piece confetti2"></div>
+    <div class="confetti-piece confetti3"></div>
+    <div class="confetti-piece confetti4"></div>
+    <div class="confetti-piece confetti5"></div>
+    <div class="confetti-piece confetti6"></div>
+    <div class="confetti-piece confetti7"></div>
+    <div class="confetti-piece confetti8"></div>
+</div>
+<div style="position:relative; z-index:2;">
+    <div class="bg-ornaments">
+        <img src="{{ url_for('static', filename='mandala.svg') }}" class="mandala" alt="Mandala">
+        <img src="{{ url_for('static', filename='herb.svg') }}" class="herb" alt="Herb">
+        <img src="{{ url_for('static', filename='lotus.svg') }}" class="lotus" alt="Lotus">
+        <svg class="ellipse1" width="70" height="70"><ellipse cx="35" cy="35" rx="35" ry="35" fill="#7be0ad"></ellipse></svg>
+    </div>
+    <div class="section-title fade-in">
+        <h2 class="main-title">🏆 Achievements &amp; Milestones <span class="celebrate">🎉</span></h2>
+        <div class="divider"></div>
+        <div style="color:#34b278;font-size:1.15em; margin: 0.7em 0 0 0;">
+            Celebrating every step of the journey with joy and gratitude!
+        </div>
+    </div>
+    <div class="achievements-list">
+        <div class="achievement-card slide-in-up">
+            <div class="card-header">
+                <span class="emoji-badge">🥇</span>
+                <span class="ach-title">Class 10 CBSE Board</span>
+                <span class="ach-year">2020</span>
+            </div>
+            <div class="card-body">
+                Passed with <b>92%</b> from Royal International Public School, Myalanhalli.<br>
+                <span style="color:#3cb371">A proud topper moment! 🎓</span>
+            </div>
+        </div>
+        <div class="achievement-card slide-in-up">
+            <div class="card-header">
+                <span class="emoji-badge">🌟</span>
+                <span class="ach-title">Class 12 CBSE Board</span>
+                <span class="ach-year">2022</span>
+            </div>
+            <div class="card-body">
+                Scored <b>86%</b> at Narayana e-Techno School, Vidyaranyapura.<br>
+                <span style="color:#247a49">Kept the excellence going! 📚</span>
+            </div>
+        </div>
+        <div class="achievement-card slide-in-up">
+            <div class="card-header">
+                <span class="emoji-badge">💯</span>
+                <span class="ach-title">NEET-UG</span>
+                <span class="ach-year">2022</span>
+            </div>
+            <div class="card-body">
+                Cleared NEET-UG with <b>400+ marks</b>, opening the doors to medical dreams.<br>
+                <span style="color:#247a49">Persistence pays off! 🚀</span>
+            </div>
+        </div>
+        <div class="achievement-card slide-in-up">
+            <div class="card-header">
+                <img src="{{ url_for('static', filename='herb.svg') }}" class="icon" alt="Herb">
+                <span class="ach-title">BAMS 1st University Exam</span>
+                <span class="ach-year">2023</span>
+            </div>
+            <div class="card-body">
+                Secured <b>1st class</b> in the first university exam at Adichunchanagiri Ayurvedic Medical College.<br>
+                <span style="color:#3cb371;font-weight:600;">Aiming for distinction next! 🌱</span>
+            </div>
+        </div>
+        <div class="achievement-card slide-in-up">
+            <div class="card-header">
+                <img src="{{ url_for('static', filename='lotus.svg') }}" class="icon" alt="Lotus">
+                <span class="ach-title">Ayurveda Awareness Camp</span>
+                <span class="ach-year">2022</span>
+            </div>
+            <div class="card-body">
+                Organized a successful community health camp spreading Ayurveda awareness.<br>
+                <span style="color:#247a49">Healing together, the natural way! 🌿</span>
+            </div>
+        </div>
+        <div class="achievement-card slide-in-up">
+            <div class="card-header">
+                <img src="{{ url_for('static', filename='mandala.svg') }}" class="icon" alt="Mandala">
+                <span class="ach-title">Research Paper Published</span>
+                <span class="ach-year">2023</span>
+            </div>
+            <div class="card-body">
+                Published a paper on <b>"Herbs and Healing"</b> in Ayurveda Journal.<br>
+                <span style="color:#3cb371">Sharing knowledge with the world! 📖</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
